@@ -4,8 +4,8 @@ var path = require('path');
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
-var port = normalizePort(process.env.PORT || '3000');
-app.set('port', port);
+
+var port = process.env.PORT || 8080;
 
 app.set('views', __dirname + '/views');
 app.use(express.static(path.join(__dirname, 'public')))
@@ -24,6 +24,6 @@ io.on('connection', function(socket){
   });
 });
 
-http.listen(3000, function(){
+http.listen(port, function(){
   console.log('listening on *:3000');
 });
