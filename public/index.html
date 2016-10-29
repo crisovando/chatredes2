@@ -19,7 +19,9 @@
     <script type="text/javascript" src="/js/bootstrap.js"></script>
     <script>
       $(function(){
-        var socket = io();
+        //var socket = io();
+        var socket = io({transports: ['websocket'], upgrade: false});
+        
         $('form').submit(function(){
           socket.emit('chat message', $('#m').val());
           $('#m').val('');
