@@ -22,6 +22,7 @@
     <script>
       $(function(){
         var socket = io();
+        var user = null;
         //var socket = io({transports: ['websocket'], upgrade: false});
 
         $('form').submit(function(){
@@ -31,7 +32,7 @@
         });
 
         socket.on('chat message', function(msg){
-          var _$dt = $('<dt>').text(msg),
+          var _$dt = $('<dt>').text(user),
               _$dd = $('<dd>').text(msg),
               _$dl = $('<dl class="dl-horizontal">').append(_$dt).append(_$dd);
           var _$li = $('<li class="list-group-item">').append(_$dl);
@@ -40,8 +41,8 @@
         });
 
         socket.on('newUser', function(userId){
-          debugger;
           var _$li = $('<li class="list-group-item">').text(userId);
+          user = userId;
 
           $('#lstUsuarios').append(_$li);
         });
