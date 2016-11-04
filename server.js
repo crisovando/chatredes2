@@ -31,11 +31,6 @@ io.on('connection', function(socket){
   socket.broadcast.emit('newUserArrival', userId);
 });
 
-<<<<<<< HEAD
-http.listen(server_port, server_ip_address, function(){
-  console.log('listening on *:' + server_port);
-=======
 http.listen(server_port, function(){
   console.log('listening on *:3000');
->>>>>>> 668cd0f6c930fea6e22a1ee459668f2c54aa87d9
 });
