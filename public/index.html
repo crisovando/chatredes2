@@ -23,6 +23,10 @@
       $(function(){
         var socket = io();
         //var socket = io({transports: ['websocket'], upgrade: false});
+<<<<<<< HEAD
+=======
+        
+>>>>>>> 668cd0f6c930fea6e22a1ee459668f2c54aa87d9
         $('form').submit(function(){
           socket.emit('chat message', $('#m').val());
           $('#m').val('');

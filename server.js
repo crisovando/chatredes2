@@ -6,7 +6,7 @@ var io = require('socket.io')(http);
 
 
 var port = process.env.PORT || 8080;
-var server_port = process.env.OPENSHIFT_NODEJS_PORT || 8080
+var server_port = process.env.OPENSHIFT_NODEJS_PORT || port
 var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1'
 
 app.set('views', __dirname + '/views');
@@ -31,6 +31,11 @@ io.on('connection', function(socket){
   socket.broadcast.emit('newUserArrival', userId);
 });
 
+<<<<<<< HEAD
 http.listen(server_port, server_ip_address, function(){
   console.log('listening on *:' + server_port);
+=======
+http.listen(server_port, function(){
+  console.log('listening on *:3000');
+>>>>>>> 668cd0f6c930fea6e22a1ee459668f2c54aa87d9
 });
