@@ -23,10 +23,7 @@
       $(function(){
         var socket = io();
         //var socket = io({transports: ['websocket'], upgrade: false});
-<<<<<<< HEAD
-=======
-        
->>>>>>> 668cd0f6c930fea6e22a1ee459668f2c54aa87d9
+
         $('form').submit(function(){
           socket.emit('chat message', $('#m').val());
           $('#m').val('');
@@ -43,6 +40,7 @@
         });
 
         socket.on('newUser', function(userId){
+          debugger;
           var _$li = $('<li class="list-group-item">').text(userId);
 
           $('#lstUsuarios').append(_$li);
@@ -55,16 +53,15 @@
       <div class="page-content-wrapper">
         <div class="container-fluid">
           <div class="row">
-            <div class="col-lg-10">
+            <div class="col-lg-6">
               <ul id="messages" class="list-group">
                 <li class="active"><a href="#">Chat Central</a></li>
               </ul>
               <dl class="dl-horizontal">
               </dl>
             </div>
-            <div class="col-lg-2">
+            <div class="col-lg-6">
               <ul id="lstUsuarios" class="list-group">
-                <li class="list-group-item">Cras justo odio</li>
               </ul>
             </div>
           </div>

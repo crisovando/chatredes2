@@ -18,19 +18,19 @@ app.get('/', function(req, res){
 
 var allSockets = [];
 io.on('connection', function(socket){
-  var userId = allSockets.push(socket);
-  socket.on('connect', function(){
-    io.emit('newUser', userId);
-  });
+  allSockets.push(socket.id);
+
+  io.emit('newUser', allSockets);
+
   socket.on('disconnect', function(){
     console.log('user disconnected');
   });
   socket.on('chat message', function(msg){
     io.emit('chat message', msg);
   });
-  socket.broadcast.emit('newUserArrival', userId);
+
 });
 
 http.listen(server_port, function(){
-  console.log('listening on *:3000');
+  console.log('listening on *:'+server_port);
 });
