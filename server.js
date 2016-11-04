@@ -16,16 +16,21 @@ app.get('/', function(req, res){
   res.sendfile('public/index.html');
 });
 
+var allSockets = [];
 io.on('connection', function(socket){
-  console.log('a user connected');
+  var userId = allSockets.push(socket);
+  socket.on('connect', function(){
+    io.emit('newUser', userId);
+  });
   socket.on('disconnect', function(){
     console.log('user disconnected');
   });
   socket.on('chat message', function(msg){
     io.emit('chat message', msg);
   });
+  socket.broadcast.emit('newUserArrival', userId);
 });
 
 http.listen(server_port, server_ip_address, function(){
-  console.log('listening on *:3000');
+  console.log('listening on *:' + server_port);
 });

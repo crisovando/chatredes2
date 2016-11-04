@@ -13,13 +13,16 @@
       #messages li:nth-child(odd) { background: #eee; }
     </style>
     <link rel="stylesheet" href="/css/bootstrap.css">
-    <link rel="stylesheet" href="/css/bootstrap-theme.css">
+
+    <!-- Custom CSS -->
+   <link href="/css/simple-sidebar.css" rel="stylesheet">
     <script src="/socket.io/socket.io.js"></script>
     <script type="text/javascript" src="jquery-1.10.2.js"></script>
     <script type="text/javascript" src="/js/bootstrap.js"></script>
     <script>
       $(function(){
         var socket = io();
+        //var socket = io({transports: ['websocket'], upgrade: false});
         $('form').submit(function(){
           socket.emit('chat message', $('#m').val());
           $('#m').val('');
@@ -27,25 +30,49 @@
         });
 
         socket.on('chat message', function(msg){
-          $('#messages').append($('<li>').text(msg));
+          var _$dt = $('<dt>').text(msg),
+              _$dd = $('<dd>').text(msg),
+              _$dl = $('<dl class="dl-horizontal">').append(_$dt).append(_$dd);
+          var _$li = $('<li class="list-group-item">').append(_$dl);
+
+          $('#messages').append(_$li);
+        });
+
+        socket.on('newUser', function(userId){
+          var _$li = $('<li class="list-group-item">').text(userId);
+
+          $('#lstUsuarios').append(_$li);
         });
       })
     </script>
   </head>
   <body>
-    <div class="container">
-      <div class="row">
-        <div class="col-md-10">
-          <ul id="messages"></ul>      
-        </div>
-        <div class="col-md">
-
+    <div class="wrapper">
+      <div class="page-content-wrapper">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-lg-10">
+              <ul id="messages" class="list-group">
+                <li class="active"><a href="#">Chat Central</a></li>
+              </ul>
+              <dl class="dl-horizontal">
+              </dl>
+            </div>
+            <div class="col-lg-2">
+              <ul id="lstUsuarios" class="list-group">
+                <li class="list-group-item">Cras justo odio</li>
+              </ul>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-12">
+              <form action="">
+                <input id="m" autocomplete="off" /><button class="btn btn-primary">Send</button>
+              </form>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-
-    <form action="">
-      <input id="m" autocomplete="off" /><button>Send</button>
-    </form>
   </body>
 </html>
